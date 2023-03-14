@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CheckBox from 'react-native-check-box';
+import {useNavigation} from '@react-navigation/native';
 
 const Header = styled.View`
   flex: 2;
@@ -36,7 +37,9 @@ const Eclipse = styled.View`
 `;
 
 const Body2 = styled.View`
-  flex: 2;
+  width: 100%;
+  padding: 0 0 0 4%;
+  display: flex;
 `;
 
 const Footer = styled.View`
@@ -108,28 +111,28 @@ const ButtonN = styled.TouchableOpacity`
   background: #3c5898;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
-    top:-310px;
+  top: -310px;
 `;
 const ButtonText = styled.Text`
-font-style: normal;
-font-weight: 500;
-font-size: 15px;
-line-height: 22px;
-/* identical to box height */
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  /* identical to box height */
 
-text-align: center;
-top:13px;
-color: #FFFFFF;
+  text-align: center;
+  top: 13px;
+  color: #ffffff;
 `;
 
 const ForgetPasswordText = styled.Text`
-font-style: normal;
-font-weight: 700;
-font-size: 16px;
-line-height: 24px;
-text-align: center;
-color: #3C5898;
-top:-290px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #3c5898;
+  top: -290px;
 `;
 
 const Separator = styled.View`
@@ -139,87 +142,98 @@ const Separator = styled.View`
   left: 20px;
 `;
 const FooterText = styled.Text`
-font-style: normal;
-font-weight: 600;
-font-size: 14px;
-line-height: 21px;
-text-align:center;
-color: #707070;
-top:-230px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  color: #707070;
+  top: -230px;
 `;
 
 const FooterLink = styled.Text`
-font-style: normal;
-font-weight: 600;
-font-size: 18px;
-line-height: 27px;
-/* identical to box height */
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+  /* identical to box height */
 
-text-align: center;
-text-decoration-line: underline;
+  text-align: center;
+  text-decoration-line: underline;
 
-color: #3C5898;
-text-align:center;
-top:-230px;
+  color: #3c5898;
+  text-align: center;
+  top: -230px;
 `;
 export default function Login() {
   const [show, setShow] = useState(true);
+  const Navigation = useNavigation();
 
   return (
-    <View>
-      <Container>
-        <Eclipse>
-          <Image
-            style={{width: 87, height: 92, top: 450, left: 250}}
-            source={require('../asset/logo.png')}
-          />
-        </Eclipse>
+    <SafeAreaView>
+      <ScrollView>
+        <View style={{width: '100%'}}>
+          <Container>
+            <Eclipse>
+              <Image
+                style={{width: 87, height: 92, top: 450, left: 250}}
+                source={require('../asset/logo.png')}
+              />
+            </Eclipse>
 
-        <Body2>
-          <Label>Mobile Number</Label>
-          <Input />
+            <Body2>
+              <Label>Mobile Number</Label>
+              <Input />
 
-          <Label>Password</Label>
+              <Label>Password</Label>
 
-          <Password>
-            <TextInput
-              secureTextEntry={show}
-              style={{color: 'black', width: 260, height: 30}}
-            />
-            <TouchableOpacity
-              onPress={() => {
-                setShow(!show);
-              }}>
-              {show ? (
-                <Icon name="eye-slash" color={'#707070'} size={20} />
-              ) : (
-                <Icon name="eye" color={'#707070'} size={20} />
-              )}
-            </TouchableOpacity>
-          </Password>
-          <CheckBoxContainer>
-            <CheckBox
-              style={{marginRight: 10, checkBoxColor: 'red'}}
-              // onClick={() => {
-              //   setIsChecked(!isChecked);
-              // }}
-              // isChecked={isChecked}
-              checkBoxColor="#3C5898"
-              //leftText={"CheckBox"}
-            />
-            <RememberMeText>Remember me</RememberMeText>
-          </CheckBoxContainer>
-               <ButtonN><ButtonText>Sign In</ButtonText></ButtonN>
-               <ForgetPasswordText>Forget Password?</ForgetPasswordText>
-                <Separator/>
-                <FooterText>Don’t have an account ?</FooterText>
-                <FooterLink>Register</FooterLink>
-               
-        </Body2>
-        {/* <Footer>
+              <Password>
+                <TextInput
+                  secureTextEntry={show}
+                  style={{color: 'black', width: 260, height: 80}}
+                />
+                <TouchableOpacity
+                  onPress={() => {
+                    setShow(!show);
+                  }}>
+                  {show ? (
+                    <Icon name="eye-slash" color={'#707070'} size={20} />
+                  ) : (
+                    <Icon name="eye" color={'#707070'} size={20} />
+                  )}
+                </TouchableOpacity>
+              </Password>
+              <CheckBoxContainer>
+                <CheckBox
+                  style={{marginRight: 10}}
+                  onClick={() => {
+                    setIsChecked(!isChecked);
+                  }}
+                  // isChecked={isChecked}
+
+                  //leftText={"CheckBox"}
+                />
+                <RememberMeText>Remember me</RememberMeText>
+              </CheckBoxContainer>
+              <ButtonN>
+                <ButtonText>Sign In</ButtonText>
+              </ButtonN>
+              <ForgetPasswordText>Forget Password?</ForgetPasswordText>
+              <Separator />
+              <FooterText>Don’t have an account ?</FooterText>
+              <FooterLink
+                onPress={() => {
+                  Navigation.navigate('Register');
+                }}>
+                Register
+              </FooterLink>
+            </Body2>
+            {/* <Footer>
 
  </Footer> */}
-      </Container>
-    </View>
+          </Container>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }

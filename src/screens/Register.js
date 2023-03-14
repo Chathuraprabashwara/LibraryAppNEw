@@ -199,86 +199,86 @@ const OTPText = styled.Text`
   left: 41px;
 `;
 
-
 export default function Register() {
   const [next, setNext] = useState(false);
   const [otpOpen, setOtpOpen] = useState(true);
   const [phoneNum, SetPhoneNum] = useState('+9471453536');
-  const [otpCorrect,setotpCorrect] = useState(true)
+  const [otpCorrect, setotpCorrect] = useState(true);
 
-  const otpChange = (e) => {
-    if(e.length == 4){
-        setotpCorrect(false) 
-        alert(e)
-    } 
-  }
+  const otpChange = e => {
+    if (e.length == 4) {
+      setotpCorrect(false);
+      alert(e);
+    }
+  };
 
   return (
     <View>
-   { otpCorrect ? <Header>
-        <HeaderTxt>Register</HeaderTxt>
-        <CircleContainer>
-          {next ? (
+      {otpCorrect ? (
+        <Header>
+          <HeaderTxt>Register</HeaderTxt>
+          <CircleContainer>
+            {next ? (
+              <Circle>
+                <CircleIcon>
+                  <Icon name="check" color={'blue'} size={12} />
+                </CircleIcon>
+              </Circle>
+            ) : (
+              <SelectedCircle>
+                <SelectedCircleTxt>1</SelectedCircleTxt>
+              </SelectedCircle>
+            )}
+            <Line></Line>
+            {next ? (
+              <SelectedCircle>
+                <SelectedCircleTxt>2</SelectedCircleTxt>
+              </SelectedCircle>
+            ) : (
+              <Circle>
+                <CircleTxt>2</CircleTxt>
+              </Circle>
+            )}
+            <Line />
             <Circle>
-              <CircleIcon>
-                <Icon name="check" color={'blue'} size={12} />
-              </CircleIcon>
+              <CircleTxt>3</CircleTxt>
             </Circle>
-          ) : (
+          </CircleContainer>
+        </Header>
+      ) : (
+        <Header>
+          <HeaderTxt>Register</HeaderTxt>
+          <CircleContainer>
+            {next ? (
+              <Circle>
+                <CircleIcon>
+                  <Icon name="check" color={'blue'} size={12} />
+                </CircleIcon>
+              </Circle>
+            ) : (
+              <SelectedCircle>
+                <SelectedCircleTxt>1</SelectedCircleTxt>
+              </SelectedCircle>
+            )}
+            <Line></Line>
+            {next ? (
+              <Circle>
+                <CircleIcon>
+                  <Icon name="check" color={'blue'} size={12} />
+                </CircleIcon>
+              </Circle>
+            ) : (
+              <Circle>
+                <CircleTxt>2</CircleTxt>
+              </Circle>
+            )}
+            <Line />
             <SelectedCircle>
-              <SelectedCircleTxt>1</SelectedCircleTxt>
+              <SelectedCircleTxt>3</SelectedCircleTxt>
             </SelectedCircle>
-          )}
-          <Line></Line>
-          {next ? (
-            <SelectedCircle>
-              <SelectedCircleTxt>2</SelectedCircleTxt>
-            </SelectedCircle>
-          ) : (
-            <Circle>
-              <CircleTxt>2</CircleTxt>
-            </Circle>
-          )}
-          <Line />
-          <Circle>
-            <CircleTxt>3</CircleTxt>
-          </Circle>
-        </CircleContainer>
-      </Header> :
-      <Header>
-      <HeaderTxt>Register</HeaderTxt>
-      <CircleContainer>
-        {next ? (
-          <Circle>
-            <CircleIcon>
-              <Icon name="check" color={'blue'} size={12} />
-            </CircleIcon>
-          </Circle>
-        ) : (
-          <SelectedCircle>
-            <SelectedCircleTxt>1</SelectedCircleTxt>
-          </SelectedCircle>
-        )}
-        <Line></Line>
-        {next ? (
-        <Circle>
-        <CircleIcon>
-          <Icon name="check" color={'blue'} size={12} />
-        </CircleIcon>
-      </Circle>
-        ) : (
-          <Circle>
-            <CircleTxt>2</CircleTxt>
-          </Circle>
-        )}
-        <Line />
-        <SelectedCircle>
-            <SelectedCircleTxt>3</SelectedCircleTxt>
-          </SelectedCircle>
-      </CircleContainer>
-    </Header>
-      
-      }
+          </CircleContainer>
+        </Header>
+      )}
       {!next ? (
         <Body>
           <Label>First Name*</Label>
@@ -301,19 +301,26 @@ export default function Register() {
           <Label>Mobile Number</Label>
           <TextInput placeholder="+94" />
 
-     { otpOpen ? <View> 
-         <OTPText>
-            We will send one time password (OTP) to this mobile number.
-          </OTPText>
+          {otpOpen ? (
+            <View>
+              <OTPText>
+                We will send one time password (OTP) to this mobile number.
+              </OTPText>
 
-          <ButtonO
-            onPress={() => {
-              setOtpOpen(false);
-            }}>
-            <ButtonText>Get OTP</ButtonText>
-          </ButtonO>
-          </View>  : <View><OTPText>We will send one time password (OTP) to this
-mobile number.</OTPText></View>}
+              <ButtonO
+                onPress={() => {
+                  setOtpOpen(false);
+                }}>
+                <ButtonText>Get OTP</ButtonText>
+              </ButtonO>
+            </View>
+          ) : (
+            <View>
+              <OTPText>
+                We will send one time password (OTP) to this mobile number.
+              </OTPText>
+            </View>
+          )}
         </Body2>
       )}
 
@@ -356,7 +363,7 @@ mobile number.</OTPText></View>}
                 <OTPTextInput
                   ref={e => (this.otpInput = e)}
                   handleTextChange={e => {
-                   otpChange(e)
+                    otpChange(e);
                   }}
                   tintColor={'white'}
                   offTintColor={'white'}
@@ -384,7 +391,6 @@ mobile number.</OTPText></View>}
 }
 
 const styles = StyleSheet.create({
- 
   close: {
     position: 'relative',
     right: 20,

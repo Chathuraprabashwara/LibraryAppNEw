@@ -18,18 +18,22 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import OTPTextInput from 'react-native-otp-textinput';
+import {useNavigation} from '@react-navigation/native';
 const Header = styled.View`
   flex: 2;
   //   background-color:red;
   height: 200px;
+  padding: 0 0 0 4%;
 `;
 
 const Body = styled.View`
   flex: 3;
+  padding: 30px;
 `;
 
 const Body2 = styled.View`
   flex: 3;
+  padding: 0 0 0 4%;
   margin-bottom: 60px;
   margin-top: 0px;
 `;
@@ -48,6 +52,7 @@ const HeaderTxt = styled.Text`
   position: relative;
   left: 30px;
   bottom: -30px;
+  color: black;
 `;
 
 const Circle = styled.View`
@@ -199,140 +204,153 @@ const OTPText = styled.Text`
   left: 41px;
 `;
 
-
 export default function Register2() {
+  const [otpOpen, setOtpOpen] = useState(true);
+  const [phoneNum, SetPhoneNum] = useState('+9471453536');
 
-    const [otpOpen, setOtpOpen] = useState(true);
-    const [phoneNum, SetPhoneNum] = useState('+9471453536');
+  const Navigation = useNavigation();
 
   return (
-    <View>
-      <Header>
-        <HeaderTxt>Register</HeaderTxt>
-        <CircleContainer>
-        <Circle>
-              <CircleIcon>
-                <Icon name="check" color={'blue'} size={12} />
-              </CircleIcon>
-            </Circle>
-          <Line></Line>
-          <SelectedCircle>
-              <SelectedCircleTxt>2</SelectedCircleTxt>
-            </SelectedCircle>
-          <Line></Line>
-          <Circle>
-            <CircleTxt>3</CircleTxt>
-          </Circle>
-        </CircleContainer>
-      </Header>
-      <Body2>
-      <Label>Country</Label>
-          <TextInput />
+    <SafeAreaView>
+      <ScrollView>
+        <View>
+          <Header>
+            <HeaderTxt>Register</HeaderTxt>
+            <CircleContainer>
+              <Circle>
+                <CircleIcon>
+                  <Icon name="check" color={'blue'} size={12} />
+                </CircleIcon>
+              </Circle>
+              <Line></Line>
+              <SelectedCircle>
+                <SelectedCircleTxt>2</SelectedCircleTxt>
+              </SelectedCircle>
+              <Line></Line>
+              <Circle>
+                <CircleTxt>3</CircleTxt>
+              </Circle>
+            </CircleContainer>
+          </Header>
+          <Body2>
+            <Label>Country</Label>
+            <TextInput />
 
-          <Label>Mobile Number</Label>
-          <TextInput placeholder="+94" />
-          <OTPText>
-            We will send one time password (OTP) to this mobile number.
-          </OTPText>
-{ otpOpen ?
-          <ButtonO
-            onPress={() => {
-              setOtpOpen(false);
-            }}>
-            <ButtonText>Get OTP</ButtonText>
-          </ButtonO> : ""}
-      </Body2>
-   { otpOpen ? <Footer>
-          <Separator />
-          <FooterText>Already have an account ?</FooterText>
-          <FooterLink>Login</FooterLink>
-      </Footer>:
-      <Footer>
-          <View style={styles.footerbg}>
-              <View>
-                <Pressable
-                  onPress={() => {
-                    setOtpOpen(true);
-                  }}>
-                  <Text style={styles.close}>X</Text>
-                </Pressable>
+            <Label>Mobile Number</Label>
+            <TextInput placeholder="+94" />
+            <OTPText>
+              We will send one time password (OTP) to this mobile number.
+            </OTPText>
+            {otpOpen ? (
+              <ButtonO
+                onPress={() => {
+                  setOtpOpen(false);
+                }}>
+                <ButtonText>Get OTP</ButtonText>
+              </ButtonO>
+            ) : (
+              ''
+            )}
+          </Body2>
+          {otpOpen ? (
+            <Footer>
+              <Separator />
+              <FooterText>Already have an account ?</FooterText>
+              <FooterLink
+                onPress={() => {
+                  Navigation.navigate('Login');
+                }}>
+                Login
+              </FooterLink>
+            </Footer>
+          ) : (
+            <Footer>
+              <View style={styles.footerbg}>
+                <View>
+                  <Pressable
+                    onPress={() => {
+                      setOtpOpen(true);
+                    }}>
+                    <Text style={styles.close}>X</Text>
+                  </Pressable>
+                </View>
+                <View style={styles.otp}>
+                  <Text style={styles.otpText}>
+                    {' '}
+                    {`Enter OTP sent to ${phoneNum}`}
+                  </Text>
+                  <OTPTextInput
+                    ref={e => (this.otpInput = e)}
+                    handleTextChange={e => {
+                      otpChange(e);
+                    }}
+                    tintColor={'white'}
+                    offTintColor={'white'}
+                    textInputStyle={{
+                      borderColor: 'black',
+                      borderWidth: 4,
+                      borderRadius: 5,
+                      backgroundColor: 'white',
+                    }}
+                    containerStyle={{width: '100%'}}
+                  />
+                </View>
+                <View>
+                  <Text style={styles.footerText2}>
+                    Didn’t get any ?{' '}
+                    <Text style={styles.linkTest2}> RESEND OTP</Text>{' '}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.otp}>
-                <Text style={styles.otpText}>
-                  {' '}
-                  {`Enter OTP sent to ${phoneNum}`}
-                </Text>
-                <OTPTextInput
-                  ref={e => (this.otpInput = e)}
-                  handleTextChange={e => {
-                   otpChange(e)
-                  }}
-                  tintColor={'white'}
-                  offTintColor={'white'}
-                  textInputStyle={{
-                    borderColor: 'black',
-                    borderWidth: 4,
-                    borderRadius: 5,
-                    backgroundColor: 'white',
-                  }}
-                  containerStyle={{width: '100%'}}
-                />
-              </View>
-              <View>
-                <Text style={styles.footerText2}>
-                  Didn’t get any ?{' '}
-                  <Text style={styles.linkTest2}> RESEND OTP</Text>{' '}
-                </Text>
-              </View>
-            </View>
-        </Footer>}
-    </View>
+            </Footer>
+          )}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
-
 const styles = StyleSheet.create({
- 
-    close: {
-      position: 'relative',
-      right: 20,
-      textAlign: 'right',
-      color: 'white',
-      fontWeight: 500,
-      top: 10,
-    },
-    footerbg: {
-      backgroundColor: '#3C5898',
-      height: 900,
-      borderRadius: 25,
-      marginVertical: -40,
-    },
-    otp: {
-      zIndex: 3,
-      width: 300,
-      position: 'relative',
-      top: 10,
-      backgroundColor: '#3C5898',
-      left: 38,
-    },
-    otpText: {
-      color: 'white',
-      fontWeight: 800,
-      textAlign: 'center',
-      marginBottom: 10,
-    },
-    footerText2: {
-      alignContent: 'center',
-      textAlign: 'center',
-      color: 'white',
-      marginVertical: 30,
-      fontWeight: 600,
-    },
-    linkTest2: {
-      textDecorationLine: 'underline',
-      fontWeight: 600,
-      color: 'white',
-      fontSize: 15,
-      textAlign: 'center',
-    },
-  });
+  close: {
+    position: 'relative',
+    right: 20,
+    textAlign: 'right',
+    color: 'white',
+    fontWeight: 500,
+    top: 10,
+  },
+  footerbg: {
+    backgroundColor: '#3C5898',
+    height: 900,
+    borderRadius: 25,
+    marginVertical: -40,
+  },
+  otp: {
+    zIndex: 3,
+    width: 300,
+    position: 'relative',
+    top: 10,
+    backgroundColor: '#3C5898',
+    left: 38,
+  },
+  otpText: {
+    color: 'white',
+    fontWeight: 800,
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  footerText2: {
+    alignContent: 'center',
+    textAlign: 'center',
+    color: 'white',
+    marginVertical: 30,
+    fontWeight: 600,
+  },
+  linkTest2: {
+    textDecorationLine: 'underline',
+    fontWeight: 600,
+    color: 'white',
+    fontSize: 15,
+    textAlign: 'center',
+  },
+});

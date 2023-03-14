@@ -17,6 +17,7 @@ import {
   Pressable,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
 
 const Header = styled.View`
   flex: 2;
@@ -26,18 +27,21 @@ const Header = styled.View`
 
 const Body = styled.View`
   flex: 3;
+  padding: 0 0 0 3.7%;
 `;
 
 const Body2 = styled.View`
   flex: 3;
   margin-bottom: 60px;
   margin-top: 0px;
+  padding: 0 0 0 4%;
 `;
 
 const Footer = styled.View`
   flex: 2;
   //   background-color: red;
   height: 230px;
+  padding: 0 0 0 4%;
 `;
 
 const HeaderTxt = styled.Text`
@@ -48,6 +52,7 @@ const HeaderTxt = styled.Text`
   position: relative;
   left: 30px;
   bottom: -30px;
+  color: black;
 `;
 
 const Circle = styled.View`
@@ -80,6 +85,7 @@ const CircleContainer = styled.View`
   position: relative;
   top: 80px;
   left: 85px;
+  padding: 0 0 0 3%;
 `;
 
 const CircleTxt = styled.Text`
@@ -174,7 +180,7 @@ const FooterText = styled.Text`
 const FooterLink = styled.Text`
   font-style: normal;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 19px;
   line-height: 27px;
   /* identical to box height */
   top: 75px;
@@ -190,50 +196,61 @@ const CircleIcon = styled.View`
 `;
 
 export default function Register1() {
+  const Navigation = useNavigation();
   return (
-    <View>
-      <Header>
-        <HeaderTxt>Register</HeaderTxt>
-        <CircleContainer>
-          <SelectedCircle>
-            <SelectedCircleTxt>1</SelectedCircleTxt>
-          </SelectedCircle>
-          <Line></Line>
-          <Circle>
-            <CircleTxt>2</CircleTxt>
-          </Circle>
-          <Line></Line>
-          <Circle>
-            <CircleTxt>3</CircleTxt>
-          </Circle>
-        </CircleContainer>
-      </Header>
-      <Body>
+    <SafeAreaView>
+      <ScrollView>
+        <View>
+          <Header>
+            <HeaderTxt>Register</HeaderTxt>
+            <CircleContainer>
+              <SelectedCircle>
+                <SelectedCircleTxt>1</SelectedCircleTxt>
+              </SelectedCircle>
+              <Line></Line>
+              <Circle>
+                <CircleTxt>2</CircleTxt>
+              </Circle>
+              <Line></Line>
+              <Circle>
+                <CircleTxt>3</CircleTxt>
+              </Circle>
+            </CircleContainer>
+          </Header>
+          <Body>
+            <Label>First Name*</Label>
+            <TextInput />
 
-        <Label>First Name*</Label>
-        <TextInput />
+            <Label>Sure Name*</Label>
+            <TextInput
+              onChangeText={e => {
+                alert(e);
+              }}
+            />
+            <Label>Email*</Label>
+            <TextInput />
+          </Body>
+          <Footer>
+            <ButtonN
+              onPress={() => {
+                // setNext(true)
 
-        <Label>Sure Name*</Label>
-        <TextInput
-          onChangeText={e => {
-            alert(e);
-          }}
-        />
-        <Label>Email*</Label>
-        <TextInput />
-      </Body>
-      <Footer>
-      <ButtonN
-            onPress={() => {
-              setNext(true);
-            }}>
-            <ButtonText>Next</ButtonText>
-          </ButtonN>
+                Navigation.navigate('Register2');
+              }}>
+              <ButtonText>Next</ButtonText>
+            </ButtonN>
 
-          <Separator />
-          <FooterText>Already have an account ?</FooterText>
-          <FooterLink>Login</FooterLink>
-      </Footer>
-    </View>
+            <Separator />
+            <FooterText>Already have an account ?</FooterText>
+            <FooterLink
+              onPress={() => {
+                Navigation.navigate('Login');
+              }}>
+              Login
+            </FooterLink>
+          </Footer>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
