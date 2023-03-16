@@ -38,7 +38,7 @@ const Eclipse = styled.View`
 
 const Body2 = styled.View`
   width: 100%;
-  padding: 0 0 0 4%;
+  padding: 0 0 0 3%;
   display: flex;
 `;
 
@@ -218,7 +218,12 @@ export default function Login() {
               <ButtonN>
                 <ButtonText>Sign In</ButtonText>
               </ButtonN>
-              <ForgetPasswordText>Forget Password?</ForgetPasswordText>
+              <TouchableOpacity
+                onPress={() => {
+                  Navigation.navigate('ForogotPassword');
+                }}>
+                <ForgetPasswordText>Forget Password?</ForgetPasswordText>
+              </TouchableOpacity>
               <Separator />
               <FooterText>Don’t have an account ?</FooterText>
               <FooterLink

@@ -17,15 +17,18 @@ import {
   Pressable,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
 import CheckBox from 'react-native-check-box';
 const Header = styled.View`
   flex: 2;
   //   background-color:red;
   height: 200px;
+  color: black;
 `;
 
 const Body = styled.View`
   flex: 3;
+  padding: 0 0 0 4%;
 `;
 
 const Body2 = styled.View`
@@ -56,6 +59,7 @@ const HeaderTxt = styled.Text`
   line-height: 31px;
   position: relative;
   left: 30px;
+  color: black;
   bottom: -30px;
 `;
 
@@ -246,105 +250,142 @@ const FooterLink = styled.Text`
 
   color: #3c5898;
 `;
+const ButtonN = styled.TouchableOpacity`
+  width: 304px;
+  height: 49px;
+  left: 30px;
+  background: #3c5898;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  margin-top: 60px;
+`;
+const ButtonText = styled.Text`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  /* identical to box height */
+  color: #ffff;
+  top: 14px;
+  position: relative;
+  text-align: center;
+`;
 export default function Register3() {
+  const Navigation = useNavigation();
   const [isChecked, setIsChecked] = useState(false);
   return (
-    <View>
-      {!isChecked ? (
+    <SafeAreaView>
+      <ScrollView>
         <View>
-          <Header>
-            <HeaderTxt>Register</HeaderTxt>
-            <CircleContainer>
-              <Circle>
-                <CircleIcon>
-                  <Icon name="check" color={'blue'} size={12} />
-                </CircleIcon>
-              </Circle>
-              <Line></Line>
-              <Circle>
-                <CircleIcon>
-                  <Icon name="check" color={'blue'} size={12} />
-                </CircleIcon>
-              </Circle>
-              <Line></Line>
-              <SelectedCircle>
-                <SelectedCircleTxt>3</SelectedCircleTxt>
-              </SelectedCircle>
-            </CircleContainer>
-          </Header>
-          <Body>
-            <Label>Password</Label>
-            <TextInput />
-            <Label>Re Type Password</Label>
-            <TextInput />
-            <CheckBoxContainer>
-              <CheckBox
-                style={{marginRight: 10, checkBoxColor: 'red'}}
-                onClick={() => {
-                  setIsChecked(!isChecked);
-                }}
-                isChecked={isChecked}
-                checkBoxColor="#3C5898"
-                //leftText={"CheckBox"}
-              />
-              <AgrementText>
-                I agree with <AgrementText2>Terms and Conditions</AgrementText2>{' '}
-              </AgrementText>
-            </CheckBoxContainer>
-          </Body>
+          {!isChecked ? (
+            <View>
+              <Header>
+                <HeaderTxt>Register</HeaderTxt>
+                <CircleContainer>
+                  <Circle>
+                    <CircleIcon>
+                      <Icon name="check" color={'blue'} size={12} />
+                    </CircleIcon>
+                  </Circle>
+                  <Line></Line>
+                  <Circle>
+                    <CircleIcon>
+                      <Icon name="check" color={'blue'} size={12} />
+                    </CircleIcon>
+                  </Circle>
+                  <Line></Line>
+                  <SelectedCircle>
+                    <SelectedCircleTxt>3</SelectedCircleTxt>
+                  </SelectedCircle>
+                </CircleContainer>
+              </Header>
+              <Body>
+                <Label>Password</Label>
+                <TextInput />
+                <Label>Re Type Password</Label>
+                <TextInput />
+                <CheckBoxContainer>
+                  <CheckBox
+                    style={{marginRight: 10, checkBoxColor: 'red'}}
+                    onClick={() => {
+                      setIsChecked(!isChecked);
+                    }}
+                    isChecked={isChecked}
+                    checkBoxColor="#3C5898"
+                    //leftText={"CheckBox"}
+                  />
+                  <AgrementText>
+                    I agree with{' '}
+                    <AgrementText2>Terms and Conditions</AgrementText2>{' '}
+                  </AgrementText>
+                </CheckBoxContainer>
+
+                <ButtonN
+                  onPress={() => {
+                    // setNext(true)
+
+                    Navigation.navigate('TabRoute');
+                  }}>
+                  <ButtonText>Next</ButtonText>
+                </ButtonN>
+              </Body>
+            </View>
+          ) : (
+            <Body2>
+              <TermCondition>
+                <TermConditionContainer>
+                  <TermConditionText>Terms and Conditions</TermConditionText>
+                  <CloseCircle
+                    onPress={() => {
+                      setIsChecked(!isChecked);
+                    }}>
+                    <CloseSign>X</CloseSign>
+                  </CloseCircle>
+                </TermConditionContainer>
+                <TermAndConditionPara>
+                  1. This page (together with the documents referred to on it)
+                  tells you the terms of use (the “Terms of Use”) on which you
+                  may make use of our “my library” application for mobile
+                  devices (the “App”). Please read these Terms of Use carefully
+                  before you download, install or use the App. By downloading,
+                  installing or using the App, you indicate that you accept
+                  these Terms of Use and that you agree to abide by them. Your
+                  download, installation or use of the App constitutes your
+                  acceptance of these Terms of Use which takes effect on the
+                  date on which you download, install or use the App. If you do
+                  not agree with these Terms of Use, you should cease
+                  downloading, installing or using the App immediately.
+                </TermAndConditionPara>
+                <TermAndConditionPara>
+                  2. The App is operated by ‘my library’ (SHENGEN private Ltd),
+                  SriLanka (and we refer to ourselves as “we”, “us” or “our”).
+                  We own and operate the App on our own behalf.
+                </TermAndConditionPara>
+                <TermAndConditionPara>
+                  3. We reserve the right to change these Terms of Use at any
+                  time without notice to you by posting changes on the ‘my
+                  library’’ website (the “Website”) or by updating the App to
+                  incorporate the new terms of use. You are responsible for
+                  regularly reviewing information posted online to obtain timely
+                </TermAndConditionPara>
+              </TermCondition>
+            </Body2>
+          )}
+
+          {isChecked ? (
+            <Footer>
+              <FooterText>Already have an account ?</FooterText>
+              <FooterLink>Login</FooterLink>
+            </Footer>
+          ) : (
+            <Footer2>
+              <Separator />
+              <FooterText>Already have an account ?</FooterText>
+              <FooterLink>Login</FooterLink>
+            </Footer2>
+          )}
         </View>
-      ) : (
-        <Body2>
-          <TermCondition>
-            <TermConditionContainer>
-              <TermConditionText>Terms and Conditions</TermConditionText>
-              <CloseCircle
-                onPress={() => {
-                  setIsChecked(!isChecked);
-                }}>
-                <CloseSign>X</CloseSign>
-              </CloseCircle>
-            </TermConditionContainer>
-            <TermAndConditionPara>
-              1. This page (together with the documents referred to on it) tells
-              you the terms of use (the “Terms of Use”) on which you may make
-              use of our “my library” application for mobile devices (the
-              “App”). Please read these Terms of Use carefully before you
-              download, install or use the App. By downloading, installing or
-              using the App, you indicate that you accept these Terms of Use and
-              that you agree to abide by them. Your download, installation or
-              use of the App constitutes your acceptance of these Terms of Use
-              which takes effect on the date on which you download, install or
-              use the App. If you do not agree with these Terms of Use, you
-              should cease downloading, installing or using the App immediately.
-            </TermAndConditionPara>
-            <TermAndConditionPara>
-              2. The App is operated by ‘my library’ (SHENGEN private Ltd),
-              SriLanka (and we refer to ourselves as “we”, “us” or “our”). We
-              own and operate the App on our own behalf.
-            </TermAndConditionPara>
-            <TermAndConditionPara>
-              3. We reserve the right to change these Terms of Use at any time
-              without notice to you by posting changes on the ‘my library’’
-              website (the “Website”) or by updating the App to incorporate the
-              new terms of use. You are responsible for regularly reviewing
-              information posted online to obtain timely
-            </TermAndConditionPara>
-          </TermCondition>
-        </Body2>
-      )}
-      {isChecked ? (
-        <Footer>
-          <FooterText>Already have an account ?</FooterText>
-          <FooterLink>Login</FooterLink>
-        </Footer>
-      ) : (
-        <Footer2>
-          <Separator />
-          <FooterText>Already have an account ?</FooterText>
-          <FooterLink>Login</FooterLink>
-        </Footer2>
-      )}
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }

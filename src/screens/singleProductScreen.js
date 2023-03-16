@@ -1,8 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState, useCallback} from 'react';
 import {
   View,
@@ -363,7 +358,6 @@ const SerisText2 = styled.Text`
   color: black;
   font-weight: 500;
   font-size: 16px;
-  
 `;
 //functions
 
@@ -389,7 +383,7 @@ const data = [
 
 //Icons
 
-function singleProductScreen(): JSX.Element {
+function SingleProductScreen(): JSX.Element {
   const [count, setCount] = useState(0);
   const onPress = () => setCount(prevCount => prevCount + 1);
 
@@ -649,4 +643,4 @@ function singleProductScreen(): JSX.Element {
   );
 }
 
-export default singleProductScreen;
+export default SingleProductScreen;

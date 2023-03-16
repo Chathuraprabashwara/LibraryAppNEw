@@ -9,6 +9,8 @@ import Splash from '../screens/Splash';
 import Register from '../screens/Register1';
 import Register2 from '../screens/Register2';
 import Register3 from '../screens/Register3';
+import ForgotPassword from '../screens/ForgetPassword2';
+import TabRoute from './TabRoute';
 const Route = () => {
   const Stack = createStackNavigator();
   return (
@@ -38,6 +40,17 @@ const Route = () => {
         <Stack.Screen
           name="Register3"
           component={Register3}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ForogotPassword"
+          component={ForgotPassword}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="TabRoute"
+          component={TabRoute}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

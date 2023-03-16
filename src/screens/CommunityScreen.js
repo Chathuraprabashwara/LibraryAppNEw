@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
@@ -6,16 +6,16 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-} from "react-native";
-import { NativeBaseProvider } from "native-base";
-import { Image } from "native-base";
-import styled from "styled-components";
-import Icon from "react-native-vector-icons/Ionicons";
-import FaIcon from "react-native-vector-icons/FontAwesome5";
-import DropShadow from "react-native-drop-shadow";
+} from 'react-native';
+import {NativeBaseProvider} from 'native-base';
+import {Image} from 'native-base';
+import styled from 'styled-components';
+import Icon from 'react-native-vector-icons/Ionicons';
+import FaIcon from 'react-native-vector-icons/FontAwesome5';
+import DropShadow from 'react-native-drop-shadow';
 
-import Header from "../components/CommunityHeader";
-import Post from "../components/Post";
+import Header from '../components/CommunityHeader';
+import Post from '../components/Post';
 
 const HeaderCon = styled.View`
   padding: 30px 0 0 0;
@@ -36,7 +36,7 @@ const LogoCon = styled.View`
 const LText = styled.Text`
   color: #3d3d3d;
   font-size: 22px;
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-style: normal;
   font-weight: 700;
   font-size: 23px;
@@ -104,22 +104,12 @@ const StyledTextInput = styled.TextInput`
 
 // Objects
 
-const Avatar = [require("../asset/A1.png")];
+const Avatar = [require('../asset/A1.png')];
 
-const Post = [
-  {
-    proPic: require("../asset/propic.png"),
-    userName: "Anjula Weerasinghe",
-    time: 3,
-    postImage: require("../asset/postImage.png"),
-    PostText:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'sLorem Ipsum is simply dummy text of the printing",
-  },
-];
 const CommunityScreen = () => {
-  const [textInputValue, setTextInputValue] = React.useState("");
+  const [textInputValue, setTextInputValue] = React.useState('');
   return (
-    <SafeAreaView style={{ backgroundColor: "white" }}>
+    <SafeAreaView style={{backgroundColor: 'white', height: '100%'}}>
       <Header />
       <ScrollView>
         <ThoughtCon>
@@ -130,9 +120,9 @@ const CommunityScreen = () => {
           </AvatarCon>
           <MessegeCon>
             <StyledTextInput
-              onChangeText={(text) => setTextInputValue(text)}
+              onChangeText={text => setTextInputValue(text)}
               value={textInputValue}
-              placeholder='Share Your Thoughts!'
+              placeholder="Share Your Thoughts!"
             />
           </MessegeCon>
         </ThoughtCon>

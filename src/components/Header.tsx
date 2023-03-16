@@ -8,6 +8,7 @@ import {
   Button,
   TouchableHighlight,
   TouchableOpacity,
+  Share,
 } from 'react-native';
 
 import styled from 'styled-components/native';
@@ -48,6 +49,25 @@ const ArowCon = styled.View``;
 
 const title = ['The Book Thife'];
 function Header(): JSX.Element {
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          'React Native | A framework for building native apps using React',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          get(window.location.herf);
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error: any) {
+      Alert.alert(error.message);
+    }
+  };
   return (
     <HeadCon>
       <TitleCon>
@@ -60,7 +80,9 @@ function Header(): JSX.Element {
       </TitleCon>
 
       <IconCon>
-        <Icon name="share-social-outline" size={32} color={'white'}></Icon>
+        <TouchableOpacity onPress={onShare}>
+          <Icon name="share-social-outline" size={32} color={'white'}></Icon>
+        </TouchableOpacity>
       </IconCon>
     </HeadCon>
   );

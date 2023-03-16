@@ -244,7 +244,9 @@ export default function Register2() {
             {otpOpen ? (
               <ButtonO
                 onPress={() => {
-                  setOtpOpen(false);
+                  //
+
+                  Navigation.navigate('Register3');
                 }}>
                 <ButtonText>Get OTP</ButtonText>
               </ButtonO>
@@ -329,7 +331,7 @@ const styles = StyleSheet.create({
     zIndex: 3,
     width: 300,
     position: 'relative',
-    top: 10,
+    top: 20,
     backgroundColor: '#3C5898',
     left: 38,
   },

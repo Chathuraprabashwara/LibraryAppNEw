@@ -34,7 +34,6 @@ const Splash = () => {
     if (isGo == true) {
       setTimeout(() => {
         Navigation.navigate('Login');
-
         setGo(false);
       }, 3000);
     }
