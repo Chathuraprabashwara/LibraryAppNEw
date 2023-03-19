@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+
 import {
   View,
   Text,
@@ -20,6 +21,11 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CheckBox from 'react-native-check-box';
 import {useNavigation} from '@react-navigation/native';
+
+import Spinner from 'react-native-loading-spinner-overlay/lib';
+import ToastManager, {Toast} from 'toastify-react-native';
+
+import axios from 'axios';
 
 const Header = styled.View`
   flex: 2;
@@ -165,12 +171,73 @@ const FooterLink = styled.Text`
   text-align: center;
   top: -230px;
 `;
+
+const ErrorCon = styled.View`
+  top: -350px;
+  left: 40px;
+  width: 60%;
+  height: 7%;
+  background-color: red;
+  opacity: 0.5;
+  display: flex;
+  justify-content: center;
+  padding: 0 0 0 10px;
+`;
+
+const ErrorText = styled.Text`
+  color: white;
+  font-size: 18px;
+`;
+
 export default function Login() {
   const [show, setShow] = useState(true);
   const Navigation = useNavigation();
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
+  const [spin, setSpin] = useState(false);
+
+  const handleSubmit = async e => {
+    setSpin(true);
+    // setError(false);
+    console.log('mobileNumber', mobileNumber);
+    e.preventDefault();
+    try {
+      const data2 = await axios.post(
+        'http://192.168.1.77:3000/auth/login',
+        {
+          mobileNumber: mobileNumber,
+          password: password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+          },
+        },
+      );
+      if (data2) console.log(data2.data);
+
+      if (data2) {
+        Navigation.navigate('TabRoute');
+        setSpin(false);
+        Toast.info('Login Succsesfull', 'top');
+      }
+    } catch (err) {
+      setError(true);
+      setSpin(false);
+      Toast.error('Invalid Credentials', 'top');
+    }
+  };
+
+  const handlesave = e => {
+    console.log(e);
+  };
 
   return (
     <SafeAreaView>
+      <Spinner visible={spin} textContent={'Loading...'} />
+      <ToastManager />
       <ScrollView>
         <View style={{width: '100%'}}>
           <Container>
@@ -183,14 +250,24 @@ export default function Login() {
 
             <Body2>
               <Label>Mobile Number</Label>
-              <Input />
+              <Input
+                name="email"
+                style={{color: 'black', paddingLeft: 15}}
+                onChangeText={e => {
+                  setMobileNumber(e);
+                }}
+              />
 
               <Label>Password</Label>
 
               <Password>
                 <TextInput
+                  name="password"
                   secureTextEntry={show}
                   style={{color: 'black', width: 260, height: 80}}
+                  onChangeText={e => {
+                    setPassword(e);
+                  }}
                 />
                 <TouchableOpacity
                   onPress={() => {
@@ -203,6 +280,9 @@ export default function Login() {
                   )}
                 </TouchableOpacity>
               </Password>
+
+              {/* {error ?  : ''} */}
+
               <CheckBoxContainer>
                 <CheckBox
                   style={{marginRight: 10}}
@@ -215,9 +295,13 @@ export default function Login() {
                 />
                 <RememberMeText>Remember me</RememberMeText>
               </CheckBoxContainer>
+
               <ButtonN>
-                <ButtonText>Sign In</ButtonText>
+                <TouchableOpacity onPress={e => handleSubmit(e)}>
+                  <ButtonText>Sign In</ButtonText>
+                </TouchableOpacity>
               </ButtonN>
+
               <TouchableOpacity
                 onPress={() => {
                   Navigation.navigate('ForogotPassword');

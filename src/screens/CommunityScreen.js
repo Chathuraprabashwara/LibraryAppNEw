@@ -6,9 +6,9 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Image,
 } from 'react-native';
-import {NativeBaseProvider} from 'native-base';
-import {Image} from 'native-base';
+
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
@@ -104,8 +104,6 @@ const StyledTextInput = styled.TextInput`
 
 // Objects
 
-const Avatar = [require('../asset/A1.png')];
-
 const CommunityScreen = () => {
   const [textInputValue, setTextInputValue] = React.useState('');
   return (
@@ -114,9 +112,7 @@ const CommunityScreen = () => {
       <ScrollView>
         <ThoughtCon>
           <AvatarCon>
-            <NativeBaseProvider>
-              {/* <Image source={Avatar} /> */}
-            </NativeBaseProvider>
+            <Image source={require('../asset/A1.png')} />
           </AvatarCon>
           <MessegeCon>
             <StyledTextInput

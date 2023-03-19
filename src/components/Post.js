@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import FbGrid from 'react-native-fb-image-grid';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon2 from 'react-native-vector-icons/Ionicons';
-import Icon3 from 'react-native-vector-icons/FontAwesome';
+import Icon3 from 'react-native-vector-icons/AntDesign';
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 import ReadMore from 'react-native-read-more-text';
 
@@ -51,7 +51,7 @@ const TimeStamp = styled.Text`
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
-  line-height: 18px;
+
   /* identical to box height */
 
   color: #707070;
@@ -59,7 +59,6 @@ const TimeStamp = styled.Text`
 
 const ParagraphCon = styled.View`
   padding: 0px 10px;
-  margin: 0 0 0px 0;
 `;
 const PText = styled.Text`
   font-family: 'Poppins';
@@ -72,7 +71,7 @@ const PText = styled.Text`
 `;
 
 const ImageContainer = styled.View`
-  height: 300px;
+  height: 350px;
   width: 100%;
 `;
 
@@ -141,7 +140,9 @@ const posts = [
 
     paragraph:
       'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed repellat expedita sit? Odio aut iure quae nihil sint sunt labore ratione temporibus excepturi, atque facilis porro, maiores magnam natus fugit minus. Temporibus similique vero minus sit perferendis tempore at et.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed repellat expedita sit? Odio aut iure quae nihil sint sunt labore ratione temporibus excepturi, atque facilis porro, maiores magnam natus fugit minus. Temporibus similique vero minus sit perferendis tempore at et.',
-    postImage: ['../asset/postImage.png'],
+    postImage: [
+      'https://images.unsplash.com/photo-1601881557915-a9711404b42b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+    ],
     PostText:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'sLorem Ipsum is simply dummy text of the printing",
 
@@ -154,7 +155,9 @@ const posts = [
     userName: 'Anjula Weerasinghe',
     time: '3h',
     paragraph: '',
-    postImage: ['../asset/postImage.png'],
+    postImage: [
+      'https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+    ],
     PostText:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'sLorem Ipsum is simply dummy text of the printing",
 
@@ -165,7 +168,9 @@ const posts = [
     proPic: require('../asset/propic.png'),
     userName: 'Anjula Weerasinghe',
     time: '3h',
-    postImage: ['../asset/postImage.png'],
+    postImage: [
+      'https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+    ],
     PostText:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'sLorem Ipsum is simply dummy text of the printing",
 
@@ -350,7 +355,7 @@ const Post = () => {
 
             <ParagraphCon>
               <ReadMore
-                numberOfLines={3}
+                numberOfLines={5}
                 renderTruncatedFooter={this._renderTruncatedFooter}
                 renderRevealedFooter={this._renderRevealedFooter}
                 onReady={this._handleTextReady}>
@@ -401,7 +406,7 @@ const Post = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <Icon3 name="thumbs-up" size={24} color={'#000'} />
+                  <Icon3 name="like2" size={24} color={'#6D6D6D'} />
 
                   <Text2>Care</Text2>
                 </TouchableOpacity>
@@ -417,7 +422,7 @@ const Post = () => {
                   <Icon4
                     name="comment-outline"
                     size={24}
-                    color={'#000'}
+                    color={'#6D6D6D'}
                     style={{padding: '1%'}}
                   />
                   <Text2>Comment</Text2>
@@ -431,7 +436,7 @@ const Post = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <Icon name="share" size={24} color={'#000'} />
+                  <Icon name="share" size={24} color={'#6D6D6D'} />
                   <Text2>Read</Text2>
                 </TouchableOpacity>
               </LikeBtn>
@@ -482,5 +487,21 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
+
+_renderTruncatedFooter = handlePress => {
+  return (
+    <Text style={{color: 'black', marginTop: 5}} onPress={handlePress}>
+      Read more..
+    </Text>
+  );
+};
+
+_renderRevealedFooter = handlePress => {
+  return (
+    <Text style={{color: 'black', marginTop: 5}} onPress={handlePress}>
+      Show less
+    </Text>
+  );
+};
 
 export default Post;

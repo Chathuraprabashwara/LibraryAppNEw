@@ -421,9 +421,11 @@ function SingleProductScreen(): JSX.Element {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{height: '100%'}}>
       <Head />
       <ScrollView nestedScrollEnabled={true}>
+
+      {}
         <Container>
           <HeroCon>
             <ImageCon>
